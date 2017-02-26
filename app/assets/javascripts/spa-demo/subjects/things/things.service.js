@@ -7,6 +7,7 @@
 
   ThingFactory.$inject = ["$resource","spa-demo.config.APP_CONFIG"];
   function ThingFactory($resource, APP_CONFIG) {
+    console.log(APP_CONFIG.server_url);
     var service = $resource(APP_CONFIG.server_url + "/api/things/:id",
         { id: '@id'},
         { update: {method:"PUT"} }
