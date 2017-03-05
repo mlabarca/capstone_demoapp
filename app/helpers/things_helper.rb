@@ -5,4 +5,8 @@ module ThingsHelper
   def restrict_notes? user_roles
     user_roles.empty? && !is_admin?
   end
-end 
+
+  def can_filter?
+    @current_user
+  end
+end
