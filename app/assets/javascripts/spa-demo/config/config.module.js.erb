@@ -4,7 +4,7 @@
   angular
     .module("spa-demo.config", [])
     .constant("spa-demo.config.APP_CONFIG", {
-      server_url: "<%=  ENV['RAILS_API_URL'] %>",
+      server_url: "<%=   ENV['RAILS_API_URL'] %>",
 
       main_page_html: "<%= asset_path('spa-demo/pages/main.html') %>",
       signup_page_html: "<%= asset_path('spa-demo/pages/signup_page.html') %>",
@@ -20,6 +20,7 @@
       image_editor_html: "<%= asset_path('spa-demo/subjects/images/image_editor.html') %>",
       thing_editor_html: "<%= asset_path('spa-demo/subjects/things/thing_editor.html') %>",
       thing_selector_html: "<%= asset_path('spa-demo/subjects/things/thing_selector.html') %>",
+      thing_tag_selector_html: "<%= asset_path('spa-demo/subjects/things/thing_tag_selector.html') %>"
     });
 
 })();
