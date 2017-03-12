@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305131847) do
+ActiveRecord::Schema.define(version: 20170305144059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,8 +69,10 @@ ActiveRecord::Schema.define(version: 20170305131847) do
     t.integer  "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "creator_id"
   end
 
+  add_index "thing_tags", ["creator_id"], name: "index_thing_tags_on_creator_id", using: :btree
   add_index "thing_tags", ["tag_id"], name: "index_thing_tags_on_tag_id", using: :btree
   add_index "thing_tags", ["thing_id"], name: "index_thing_tags_on_thing_id", using: :btree
 
@@ -118,4 +120,5 @@ ActiveRecord::Schema.define(version: 20170305131847) do
   add_foreign_key "thing_images", "things"
   add_foreign_key "thing_tags", "tags"
   add_foreign_key "thing_tags", "things"
+  add_foreign_key "thing_tags", "users", column: "creator_id"
 end

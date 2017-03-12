@@ -65,4 +65,8 @@ class ThingsController < ApplicationController
           p.require(:name) #throws ActionController::ParameterMissing
         }.permit(:name, :description, :notes)
     end
+
+    def can_filter?
+      @current_user
+    end
 end
