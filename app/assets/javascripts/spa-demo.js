@@ -6,6 +6,7 @@
 //= require angular-resource
 //= require angular-cookie
 //= require ng-token-auth
+//= require ng-tags-input
 
 //= require spa-demo/app.module
 //= require spa-demo/app.router

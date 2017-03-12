@@ -1,4 +1,4 @@
-# 
+#
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.6'
@@ -55,4 +55,5 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-angular-resource', '<= 1.5.9'
   gem 'rails-assets-ng-token-auth', '~>0.0', '>= 0.0.27'
   gem 'rails-assets-angular-cookie' #required by ng-token-auth
+  gem 'rails-assets-ng-tags-input'
 end
