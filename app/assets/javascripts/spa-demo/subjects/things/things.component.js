@@ -191,27 +191,20 @@
   ThingTagSelectorController.$inject = ["$scope",
                                         "$stateParams",
                                         "spa-demo.authz.Authz",
-                                        "spa-demo.subjects.Thing"];
-  function ThingTagSelectorController($scope, $stateParams, Authz, Thing) {
+                                        "spa-demo.subjects.Thing",
+                                        "spa-demo.subjects.Tag"];
+  function ThingTagSelectorController($scope, $stateParams, Authz, Thing, ThingTag) {
     var vm=this;
-    var dummyTags = [
-      { text: 'Tag1' },
-      { text: 'Tag2' },
-      { text: 'Tag3' },
-      { text: 'Tag4' },
-      { text: 'Tag5' },
-      { text: 'Tag6' }
-    ];
-    vm.tags = [
-      { text: 'Tag1' },
-      { text: 'Tag2' }
-    ];
+    vm.tags = [];
 
     vm.loadTags = function(query) {
-      return dummyTags;
+      return ThingTag.query({term: query}).$promise.then(function(results){
+        return results.map(function(result){
+          return {id: result.id, text: result.name}
+        })
+      });
     };
     return;
-    //////////////
   }
 
 })();
