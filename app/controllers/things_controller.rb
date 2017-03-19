@@ -9,7 +9,9 @@ class ThingsController < ApplicationController
 
   def index
     authorize Thing
-    things = policy_scope(Thing).tap{|s| s.from_tags(params[:tag_ids]) if can_filter?}
+    things = policy_scope(Thing)
+    things = things.from_tags(params[:tag_ids]) if can_filter?
+
     @things = ThingPolicy.merge(things)
   end
 
@@ -67,6 +69,6 @@ class ThingsController < ApplicationController
     end
 
     def can_filter?
-      @current_user
+      @current_user.present?
     end
 end

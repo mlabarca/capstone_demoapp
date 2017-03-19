@@ -171,39 +171,52 @@
   ThingSelectorController.$inject = ["$scope",
                                      "$stateParams",
                                      "spa-demo.authz.Authz",
-                                     "spa-demo.subjects.Thing"];
-  function ThingSelectorController($scope, $stateParams, Authz, Thing) {
+                                     "spa-demo.subjects.Thing",
+                                     "spa-demo.subjects.SelectedTags"];
+  function ThingSelectorController($scope, $stateParams, Authz, Thing, SelectedTags) {
     var vm=this;
+
+    vm.selected_tags = SelectedTags.get();
+
+    var getTagIds = function(){return vm.selected_tags.map(function(tag){return tag.id})}
 
     vm.$onInit = function() {
       console.log("ThingSelectorController",$scope);
-      $scope.$watch(function(){ return Authz.getAuthorizedUserId(); },
-                    function(){
-                      if (!$stateParams.id) {
-                        vm.items = Thing.query();
-                      }
-                    });
+      $scope.$watch(function(){ return Authz.getAuthorizedUserId(); }, function(){
+        if (!$stateParams.id) {
+          vm.items = Thing.query({'tag_ids[]': getTagIds()});
+        }
+      });
+      $scope.$watch(function(){ return vm.selected_tags.length }, function(){
+        if (!$stateParams.id) {
+          vm.items = Thing.query({'tag_ids[]': getTagIds()});
+        }
+      });
     }
     return;
-    //////////////
   }
 
   ThingTagSelectorController.$inject = ["$scope",
                                         "$stateParams",
                                         "spa-demo.authz.Authz",
                                         "spa-demo.subjects.Thing",
-                                        "spa-demo.subjects.Tag"];
-  function ThingTagSelectorController($scope, $stateParams, Authz, Thing, ThingTag) {
+                                        "spa-demo.subjects.Tag",
+                                        "spa-demo.subjects.SelectedTags"];
+  function ThingTagSelectorController($scope, $stateParams, Authz, Thing, Tag, SelectedTags) {
     var vm=this;
-    vm.tags = [];
+    vm.tags = SelectedTags.get();
 
     vm.loadTags = function(query) {
-      return ThingTag.query({term: query}).$promise.then(function(results){
+      return Tag.query({term: query}).$promise.then(function(results){
         return results.map(function(result){
           return {id: result.id, text: result.name}
         })
       });
     };
+
+    vm.onTagAdd = function(){
+      SelectedTags.set(tags);
+    }
     return;
   }
 

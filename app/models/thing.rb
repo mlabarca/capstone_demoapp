@@ -9,5 +9,5 @@ class Thing < ActiveRecord::Base
   scope :not_linked, ->(image) { where.not(:id=>ThingImage.select(:thing_id)
     .where(:image=>image)) }
   scope :from_tags, ->(tag_ids) { joins(:thing_tags)
-    .where('thing_tags.tag_id in (?)', tag_ids) if tag_ids.present?}
+    .where('thing_tags.tag_id = ALL (array[?])', tag_ids.map(&:to_i)) if tag_ids.present?}
 end
