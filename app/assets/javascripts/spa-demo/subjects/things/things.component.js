@@ -48,9 +48,10 @@
                                    "$state","$stateParams",
                                    "spa-demo.authz.Authz",
                                    "spa-demo.subjects.Thing",
-                                   "spa-demo.subjects.ThingImage"];
+                                   "spa-demo.subjects.ThingImage",
+                                   "spa-demo.subjects.Tag"];
   function ThingEditorController($scope, $q, $state, $stateParams,
-                                 Authz, Thing, ThingImage) {
+                                 Authz, Thing, ThingImage, Tag) {
     var vm=this;
     vm.create = create;
     vm.clear  = clear;
@@ -91,6 +92,21 @@
             ti.originalPriority = ti.priority;
           });
         });
+
+      vm.item.$promise.then(function(item){
+        console.log(item);
+        Tag.query({term: ''}).$promise.then(function(all_tags){
+          vm.selected_tags = [];
+          var current_tag_ids = item.tags.map(function(tag){return tag.id});
+          vm.available_tags = all_tags.map(function(tag){
+            var selected = current_tag_ids.indexOf(tag.id) != -1;
+            return {id: tag.id, name: tag.name, selected: selected}
+          });
+          vm.selected_tags = item.tags.map(function(tag){
+            return {id: tag.id, name: tag.name, selected: true}
+          });
+        });
+      });
       $q.all([vm.item.$promise,vm.images.$promise]).catch(handleError);
     }
     function haveDirtyLinks() {
