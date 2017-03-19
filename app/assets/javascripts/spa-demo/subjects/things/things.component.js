@@ -214,6 +214,8 @@
       });
     };
 
+    vm.editing = !$stateParams.id;
+
     vm.onTagAdd = function(){
       SelectedTags.set(tags);
     }
