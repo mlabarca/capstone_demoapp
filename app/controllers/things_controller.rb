@@ -10,7 +10,7 @@ class ThingsController < ApplicationController
   def index
     authorize Thing
     things = policy_scope(Thing)
-    things = things.from_tags(params[:tag_ids]) if can_filter?
+    things = Thing.from_tags(things, params[:tag_ids]) if can_filter?
 
     @things = ThingPolicy.merge(things)
   end

@@ -8,6 +8,14 @@ class Thing < ActiveRecord::Base
 
   scope :not_linked, ->(image) { where.not(:id=>ThingImage.select(:thing_id)
     .where(:image=>image)) }
-  scope :from_tags, ->(tag_ids) { joins(:thing_tags)
-    .where('thing_tags.tag_id = ALL (array[?])', tag_ids.map(&:to_i)) if tag_ids.present?}
+
+  def self.from_tags things, tag_ids
+    if tag_ids.present?
+      tag_ids = tag_ids.map(&:to_i)
+      things.select{|thing| (tag_ids - thing.tags.map(&:id)).empty?}
+    else
+      things
+    end
+  end
+
 end
