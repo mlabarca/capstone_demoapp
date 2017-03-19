@@ -7,6 +7,7 @@
 //= require angular-cookie
 //= require ng-token-auth
 //= require ng-tags-input
+//= require isteven-angular-multiselect
 
 //= require spa-demo/app.module
 //= require spa-demo/app.router

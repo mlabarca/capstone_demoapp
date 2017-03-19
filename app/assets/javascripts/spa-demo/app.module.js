@@ -5,6 +5,7 @@
     .module("spa-demo", [
       "ui.router",
       "ngTagsInput",
+      "isteven-multi-select",
       "spa-demo.config",
       "spa-demo.authn",
       "spa-demo.authz",
