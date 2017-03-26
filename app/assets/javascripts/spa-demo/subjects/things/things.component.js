@@ -94,7 +94,6 @@
         });
 
       vm.item.$promise.then(function(item){
-        console.log(item);
         Tag.query({term: ''}).$promise.then(function(all_tags){
           vm.selected_tags = [];
           var current_tag_ids = item.tags.map(function(tag){return tag.id});

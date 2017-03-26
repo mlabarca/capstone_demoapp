@@ -73,15 +73,24 @@
     <span class="invalid">{{$ctrl.item.errors.images}}</span>
   </div>
 
-  <div
-    isteven-multi-select
-    input-model="$ctrl.available_tags"
-    output-model="$ctrl.selected_tags"
-    button-label="icon name"
-    item-label="icon name maker"
-    tick-property="selected"
-  >
+  <div class='thing-tags row col-lg-12' ng-show='$ctrl.item.id'>
+    <label class="col-xs-3">Tags:</label>
+    <div
+      isteven-multi-select
+      input-model="$ctrl.available_tags"
+      output-model="$ctrl.selected_tags"
+      on-item-click='thingform.$setDirty()'
+      on-select-all="thingform.$setDirty()"
+      on-select-none="thingform.$setDirty()"
+      on-reset="thingform.$setPristine()"
+      button-label="name"
+      item-label="name"
+      tick-property="selected"
+      class ='col-xs-9'
+    >
+    </div>
   </div>
+
   <div class="thing-controls"
        ng-show="$ctrl.authz.authenticated">
     <button ng-show="!$ctrl.item.id && $ctrl.authz.canCreate"
