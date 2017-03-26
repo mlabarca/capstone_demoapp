@@ -73,7 +73,7 @@
     <span class="invalid">{{$ctrl.item.errors.images}}</span>
   </div>
 
-  <div class='thing-tags row col-lg-12' ng-show='$ctrl.item.id'>
+  <div class='thing-tags row col-lg-12' ng-show='$ctrl.item.id && $ctrl.authz.canViewTags'>
     <label class="col-xs-3">Tags:</label>
     <div
       isteven-multi-select
@@ -87,6 +87,7 @@
       item-label="name"
       tick-property="selected"
       class ='col-xs-9'
+      is-disabled="!$ctrl.authz.canEditTags"
     >
     </div>
   </div>
