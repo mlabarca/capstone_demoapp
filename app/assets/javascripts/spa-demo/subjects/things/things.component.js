@@ -135,7 +135,8 @@
 
     function update() {
       vm.item.errors = null;
-      var update=vm.item.$update();
+      var tag_ids = vm.selected_tags.map(function(tag){return tag.id});
+      var update=vm.item.$update({'tag_ids[]': tag_ids});
       updateImageLinks(update);
     }
     function updateImageLinks(promise) {
